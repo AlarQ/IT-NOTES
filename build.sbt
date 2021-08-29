@@ -26,4 +26,13 @@ libraryDependencies ++= Seq(
   "com.sksamuel.elastic4s" %% "elastic4s-json-spray" % elastic4sVersion,
   "com.sksamuel.elastic4s" %% "elastic4s-testkit" % elastic4sVersion % "test",
   "com.softwaremill.common" %% "id-generator" % "1.3.1",
+  "com.chuusai" %% "shapeless" % "2.3.7"
 )
+
+val circeVersion = "0.14.1"
+
+libraryDependencies ++= Seq(
+  "io.circe" %% "circe-core",
+  "io.circe" %% "circe-generic",
+  "io.circe" %% "circe-parser"
+).map(_ % circeVersion)

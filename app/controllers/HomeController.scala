@@ -52,7 +52,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
       maybeQuery match {
         case Success((query, operationName, variables)) => Future.successful{
-          BadRequest("asas")
+          BadRequest("FIX AFTER GRAPHQL SCHEMA DEF")
         }
         case Failure(error) => Future.successful {
           BadRequest(error.getMessage)
@@ -60,13 +60,6 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
       }
   }
 
-
-  /**
-   * Parses variables of incoming query.
-   *
-   * @param variables variables from incoming query
-   * @return JsObject with variables
-   */
   def parseVariables(variables: String): JsObject = if (variables.trim.isEmpty || variables.trim == "null") Json.obj()
   else Json.parse(variables).as[JsObject]
 
