@@ -1,19 +1,10 @@
 package controllers
 
-import javax.inject._
-import play.api._
-import play.api.http.Writeable.wBytes
-import play.api.mvc._
 import com.google.inject.{Inject, Singleton}
+import graphql.GraphQLServer
 import play.api.libs.json._
 import play.api.mvc._
-import sangria.ast.Document
-import sangria.execution._
-import sangria.marshalling.playJson._
-import sangria.parser.QueryParser
 
-import scala.concurrent.{ExecutionContext, Future}
-import scala.util.{Failure, Success, Try}
 import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
 
@@ -51,9 +42,9 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
       }
 
       maybeQuery match {
-        case Success((query, operationName, variables)) => Future.successful{
-          BadRequest("FIX AFTER GRAPHQL SCHEMA DEF")
-        }
+        case Success((query, operationName, variables)) =>
+          GraphQLServer.executeGraphQLQuery(query, variables, operationName)
+
         case Failure(error) => Future.successful {
           BadRequest(error.getMessage)
         }

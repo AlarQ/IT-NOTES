@@ -14,11 +14,11 @@ class ReadOpsSpec extends AnyFlatSpec with Matchers with BeforeAndAfter {
   val queryFilter = Filter(name = "book")
   
   "Product doc" should "be retrieved with filter" in {
-    elasticRepo.searchEntityByFilter(queryFilter).onComplete {
+    elasticRepo.searchAll("quizposition").onComplete {
       case Success(response) =>
         response.hits.foreach(println)
-        response.total shouldBe 1
-      case Failure(exception) => println(exception)
+
+      case Failure(exception) => throw exception
     }
     Thread.sleep(2000)
 

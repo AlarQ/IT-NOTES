@@ -1,24 +1,26 @@
 package elastic.ops
 
+import com.sksamuel.elastic4s.ElasticApi.idsQuery
 import com.sksamuel.elastic4s.ElasticClient
-import com.sksamuel.elastic4s.ElasticDsl.{SearchHandler, must, search}
-import com.sksamuel.elastic4s.requests.searches.queries.PrefixQuery
-import elastic.query.Filter
+import com.sksamuel.elastic4s.ElasticDsl.{SearchHandler, search}
+import io.circe.generic.auto._
+import com.sksamuel.elastic4s.circe._
+import elastic.response.QuizPositionResponse
+import model.Entity
+import model.quiz.QuizPosition
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
 trait ReadOps {
 
-  // todo fix
-  def searchEntityByFilter(index: String, filter: Filter)(implicit elasticClient: ElasticClient) =
-    elasticClient.execute {
-      search(index).bool(must(PrefixQuery("name", filter.name)))
-    }
-  //.map(resp => ProductResponse(resp.result.to[Product], resp.result.totalHits))
-
-  def searchAll(index: String)(implicit elasticClient: ElasticClient) =
+  def searchAll(implicit index: String,elasticClient: ElasticClient) =
     elasticClient.execute {
       search(index)
     }
-  //.map(resp => ProductResponse(resp.result.to[], resp.result.totalHits))
+    .map(resp => QuizPositionResponse(resp.result.to[QuizPosition], resp.result.totalHits))
+
+  def searchById[T <: QuizPosition](entityId: String)(implicit index:String, elasticClient: ElasticClient) =
+    elasticClient.execute{
+      search(index).query(idsQuery(entityId))
+    }.map(resp => resp.result.to[T]).map(_.headOption)
 }

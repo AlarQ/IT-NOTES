@@ -23,7 +23,7 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.9" % Test,
   "com.sksamuel.elastic4s" %% "elastic4s-core" % elastic4sVersion,
   "com.sksamuel.elastic4s" %% "elastic4s-client-esjava" % elastic4sVersion,
-  "com.sksamuel.elastic4s" %% "elastic4s-json-spray" % elastic4sVersion,
+  "com.sksamuel.elastic4s" %% "elastic4s-json-circe" % elastic4sVersion,
   "com.sksamuel.elastic4s" %% "elastic4s-testkit" % elastic4sVersion % "test",
   "com.softwaremill.common" %% "id-generator" % "1.3.1",
   "com.chuusai" %% "shapeless" % "2.3.7"
