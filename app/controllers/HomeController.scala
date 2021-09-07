@@ -2,18 +2,32 @@ package controllers
 
 import com.google.inject.{Inject, Singleton}
 import graphql.GraphQLServer
+import graphql.commands.QuizQueries
+import model.quiz.QuizPosition
 import play.api.libs.json._
 import play.api.mvc._
 
-import scala.concurrent.Future
+import java.util.concurrent.TimeUnit
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 import scala.util.{Failure, Success, Try}
 
 @Singleton
 class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
-  def index() = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.index())
+  def main = {
+    val queryResult = GraphQLServer.executeGraphQLQuery(QuizQueries.getQuizPositions.toString)
+    val x = Await.result(queryResult, Duration(5, TimeUnit.SECONDS))
+    val quizPositions = (x \ "data" \ "quizPositions" \ "hits").as[List[QuizPosition]]
+
+    Action(Ok(views.html.main(quizPositions)))
   }
+
+  def quizPosition(question: String, answer: String) = Action(
+      Ok(views.html.quizPosition(question,answer)))
+
+
 
   def graphiql = Action(Ok(views.html.graphiql()))
 
@@ -43,7 +57,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
       maybeQuery match {
         case Success((query, operationName, variables)) =>
-          GraphQLServer.executeGraphQLQuery(query, variables, operationName)
+          GraphQLServer.executeGraphQLQuery(query, variables, operationName).map(Ok(_))
 
         case Failure(error) => Future.successful {
           BadRequest(error.getMessage)

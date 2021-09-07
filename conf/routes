@@ -3,6 +3,9 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
+GET         /                      controllers.HomeController.main
+GET         /quizPosition          controllers.HomeController.quizPosition(question:String,answer:String)
+
 # Route for in-browser IDE GraphiQL
 GET         /graphql               controllers.HomeController.graphiql
 # Route for the main controller that accepts all requests

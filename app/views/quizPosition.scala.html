@@ -1,7 +1,5 @@
-@import model.quiz.QuizPosition
-@(quizPositions: List[QuizPosition])
-
-<!Doctype html>
+@(question:String,answer:String)
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -25,37 +23,19 @@
 <div class="container">
     <div class="row">
         <div class="logo col-md-12">
-            <h2>ITNotes</h2>
+            ITNotes
         </div>
     </div>
     <div class="content">
-
-
-        <h3>quizPositions</h3>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Question</th>
-                <th scope="col">Answer</th>
-            </tr>
-            </thead>
-            <tbody>
-            @for(c <- quizPositions) {
-            <tr>
-                <td>@c.id</td>
-                    <td><a href="@routes.HomeController.quizPosition(c.question,c.answer)">@c.id</a>
-                </td>
-                <td>@c.question</td>
-                <td>@c.answer</td>
-            </tr>
-            }
-            </tbody>
-        </table>
+        <div class="article col-md-12">
+            <h4>Q: @question</h4>
+            <p>A: @Html(answer)</p>
+        </div>
     </div>
-
-
 </div>
+
+
+
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -22,5 +22,5 @@ trait ReadOps {
   def searchById[T <: QuizPosition](entityId: String)(implicit index:String, elasticClient: ElasticClient) =
     elasticClient.execute{
       search(index).query(idsQuery(entityId))
-    }.map(resp => resp.result.to[T]).map(_.headOption)
+    }.map(resp => resp.result.to[QuizPosition]).map(_.headOption)
 }

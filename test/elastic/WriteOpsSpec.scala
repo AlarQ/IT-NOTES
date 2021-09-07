@@ -9,7 +9,7 @@ import org.scalatest.matchers.should.Matchers
 
 class WriteOpsSpec extends AnyFlatSpec with Matchers with BeforeAndAfter {
 
-  val quizPosition: QuizPosition = QuizPosition(question = "q122222", answer = "a1")
+  val quizPosition: QuizPosition = QuizPosition(question = "aaa", answer = "bbb")
 
   "QuizPosition doc" should "be indexed" in {
     elasticRepo.indexEntity(quizPosition) shouldBe true

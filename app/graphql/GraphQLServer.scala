@@ -24,23 +24,24 @@ object GraphQLServer {
     ElasticProperties(s"http://localhost:9200")
   )
 
-  val graphiql = QuizPositionSchema(QuizPositionResolver(elastic))
+  val graphqlSchema = QuizPositionSchema(QuizPositionResolver(elastic))
 
-  def executeGraphQLQuery(query: String, variables: Option[JsObject] = None, operation: Option[String] = None): Future[Result] =
+  def executeGraphQLQuery(query: String, variables: Option[JsObject] = None, operation: Option[String] = None): Future[JsValue] =
     QueryParser.parse(query.replace("localhost:", "localhost;")) match {
       case Success(query: Document) =>
         Executor.execute(
-          schema = graphiql.schema,
+          schema = graphqlSchema.schema,
           queryAst = query,
           userContext = MainContext(elastic),
           operationName = operation,
           variables = variables.getOrElse(Json.obj()),
-        ).map(Ok(_))
-          .recover {
-            case error: QueryAnalysisError => BadRequest(error.resolveError)
-            case error: ErrorWithResolver => InternalServerError(error.resolveError)
-          }
-      case Failure(ex) => Future(BadRequest(s"${ex.getMessage}"))
+        ).recover {
+          case error: QueryAnalysisError => println(error.resolveError)
+            JsFalse
+          case error: ErrorWithResolver => println(error.resolveError)
+            JsFalse
+        }
+      case Failure(ex) => Future(JsString(ex.toString))
 
     }
 
