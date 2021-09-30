@@ -1,12 +1,24 @@
 package model
 
-import java.time.{LocalDateTime, OffsetDateTime}
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.{Decoder, Encoder}
+import play.api.libs.json.Json
+import sangria.validation.Violation
 
+import java.time.LocalDateTime
+case object DateTimeCoerceViolation extends Violation {
+  override def errorMessage: String = "Error during parsing DateTime"
+}
 // TODO EB ustawiać przy tworzeniu i modyfikacji
-case class MetaData(createdAt: OffsetDateTime, modifiedAt: Option[OffsetDateTime] = None)
+case class MetaData(createdAt: LocalDateTime, modifiedAt: Option[LocalDateTime] = None)
 
 case object MetaData {
-  // TODO EB jak to zrobić przy użyciu cats
-  def empty: MetaData = MetaData(OffsetDateTime.now())
+
+  implicit val fooDecoder: Decoder[MetaData] = deriveDecoder[MetaData]
+  implicit val fooEncoder: Encoder[MetaData] = deriveEncoder[MetaData]
+
+  implicit val jsValueFormat = Json.format[MetaData]
+
+  def empty: MetaData = MetaData(LocalDateTime.now)
 
 }

@@ -1,5 +1,5 @@
 package model.quiz
 
-import model.{Category, Entity}
+import model.{Entity, MetaData}
 
-//case class Quiz(quizPositions: Seq[QuizPosition], category: Category) extends Entity
+case class Quiz(id: String, quizPositions: List[QuizPosition], category: Category, metaData: MetaData = MetaData.empty) extends Entity

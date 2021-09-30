@@ -1,8 +1,7 @@
 package elastic
 
 import elastic.ElasticTestRepo._
-import model.Category
-import model.quiz.QuizPosition
+import model.quiz.{Category, QuizPosition}
 import org.scalatest.BeforeAndAfter
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers

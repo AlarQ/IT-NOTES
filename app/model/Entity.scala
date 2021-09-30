@@ -1,7 +1,6 @@
 package model
 
-trait Entity{
+trait Entity {
   def id: String
- // def metadata: MetaData
+  def metaData: MetaData
 }
-

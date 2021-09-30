@@ -17,7 +17,7 @@ import scala.util.{Failure, Success, Try}
 class HomeController @Inject()(val controllerComponents: ControllerComponents) extends BaseController {
 
   def main = {
-    val queryResult = GraphQLServer.executeGraphQLQuery(QuizQueries.getQuizPositions.toString)
+    val queryResult = GraphQLServer.executeGraphQLQuery(QuizQueries.getQuizPositions)
     val x = Await.result(queryResult, Duration(5, TimeUnit.SECONDS))
     val quizPositions = (x \ "data" \ "quizPositions" \ "hits").as[List[QuizPosition]]
 
