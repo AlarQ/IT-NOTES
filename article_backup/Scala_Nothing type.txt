@@ -1,0 +1,18 @@
+<ul>
+	<li>Nothing type extends every type in Scala, so it can replace any other type. Throw exceptions returns NOTHING
+		<pre><code>def giveMeInt() : Int = throw new NoSuchElementException
+  def giveMeString(): String = throw new NoSuchElementException</code></pre>
+	</li>Nothing != Unit != Null != anything at all.
+		Nothing is the type of "nothingness"
+	<li>Nothing is usefull in COVARIANT GENERICS.
+		<pre><code>  abstract class MyList[+T]
+  class NonEmptyList[+T](head: T, tail: MyList[T])
+  object EmptyList extends MyList[Nothing]
+
+  val listOfStrings: MyList[String] = EmptyList
+  val listOfIntegers: MyList[Int] = EmptyList</code></pre>
+	</li>
+	<li>
+		??? method returns nothing, new NoImplementedError
+	</li>
+</ul>

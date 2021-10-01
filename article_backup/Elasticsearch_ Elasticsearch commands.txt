@@ -1,0 +1,32 @@
+<ol>
+	<li>GET 
+		<ul>
+			<li>Get all docs in indices 
+			<code>curl -X GET 'localhost;9200/index_name/_search?pretty'</code>
+			</li>
+			<li>Get specifix doc in index 
+			<code>curl -X GET 'localhost;9200/index_name/_doc/doc_id?pretty'</code>
+			</li>
+			<li> Get only _source of doc
+			<code>curl -X GET 'localhost;9200/index_name/_doc/doc_id/_source?pretty'</code>
+			</li>
+			<li> Get all indices
+			<code>curl -X GET 'localhost;9200/_cat/indices?pretty'</code>
+			</li>
+		</ul> 
+	</li>
+	<li> UPDATE 
+		<ul>
+			<li> Update specific doc's fields 
+			<code>curl -X POST 'localhost;9200/index_name/_update/doc_id?pretty' -H 'Content-Type: application/json' -d'{  'doc': {'updated_field': 'updated_value'  }}'</code>
+			</li>
+		</ul> 
+	</li>
+	<li>DELETE 
+		<ul>
+			<li>Delete specific document 
+			<code>curl -X DELETE 'localhost;9200/index_name/_doc/doc_id'</code>
+			</li>
+		</ul> 
+	</li>
+</ol> 

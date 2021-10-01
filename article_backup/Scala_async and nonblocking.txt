@@ -1,0 +1,53 @@
+<ul>
+	<li>Example of synchronous blocking call
+		<pre><code>def blockingFunction(x: Int): Int = {
+    Thread.sleep(10000)
+    x + 42
+	// it will wait 10 seconds before evaluating
+	val y = 23 + 34
+  }
+
+  blockingFunction(5)</code></pre>
+	</li>
+	<li>Asynchronous blocking call. It will evaluate on another thread in some point in the future. It's still blocking beacuse that other thread will be blocked. ThreadPool in scala is an ExecutionContext.
+		<pre><code>def asyncBlockingFunction(x: Int): Future[Int] = Future {
+    Thread.sleep(10000)
+    x + 42
+  }
+  asyncBlockingFunction(12)
+
+  // evaluates immediately
+  val anotherY = 23
+  </code></pre>
+	</li>
+	<li>asynchronous and non-blocking
+		<pre><code>def createSimpleActor = Behaviors.receiveMessage[String] { someMessage =>
+    println(s'I received a message: $someMessage')
+    Behaviors.same
+  }
+
+  val rootActor = ActorSystem(createSimpleActor,'TestSystem')
+  // enqueing a message, asynchronous and NON-blocking
+  // NON-blocking - calling thread can go on and no other thread is blocked either!
+  rootActor ! 'Message #1'
+
+  val promiseResolver = ActorSystem(
+    Behaviors.receiveMessage[(String,Promise[Int])]{
+      case (message, promise) =>
+        // do some computations
+        promise.success(message.length)
+        Behaviors.same
+    },
+    'PromiseResolver'
+  )
+
+  def doAsyncNonBlockimgComputation(s: String) : Future[Int] = {
+    val aPromise = Promise[Int]()
+    promiseResolver ! (s,aPromise)
+    aPromise.future
+  }
+
+  val asyncNonBlockingResult = doAsyncNonBlockimgComputation('SOme message') // async, NON-blocking
+  asyncNonBlockingResult.onComplete(println)</code></pre>
+	</li>
+</ul>

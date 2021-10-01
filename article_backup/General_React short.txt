@@ -1,0 +1,51 @@
+<<<<<< REACT >>>>>>
+
+> Silnik do budowania interfejsów użytkownikaz gotowych komponentów przy użyciu JS i ewentualnie XML
+
+> łatwe renderowanie
+> virtual DOM - lekka reprezentacja DOM przechowywana w pamięci
+
+> wszystko jest zrobione z komponentów
+> pisane bezpośrednio w JS
+> komponenty mogą byćrenderowane na serverze ze względu na SEO i walory użytkowe
+
+JSX
+> pozwala na używanie XML w REACT
+> wymgana transformacja JSX -> JS
+
+podstawowa struktura aplikacji
+> folder źródłowy
+> index.html - praktycznie pusty, dla przeglądarki, żeby go załadowała, załadowanie skryptów reactowych, jeden div główny
+> package.json - nazwa projektu, autor, opis, zależności
+> narzędzie kompilacyjne JSX -> JS, pakowanie modułów oraz zależ
+
+Komponenty
+> małe elementy, wielokrotne wykorzystywanie
+> konfiguracja za pomocą props
+	> przekazywanie danych od komponentu nadrzędnego do podrzędnego
+	> wewnątrz komponentu nie można ich zmieniać
+	> są przekazywane od komponentu nadrzędnego
+> stan komponentu	
+	> potrzebny jeśli komponent ma reagować na działania użytkownika i coś robić
+	> przechowywane w prop this.state - prywatny prop komponentu, zmiana za pomocą this.setState()
+	> aktualizacja stanu => renderowanie reaktywne = renderowanie komponentu i komponentów podrzędnych
+
+Syntetyczny system zdarzeń
+> spójność i szybkość działania aplikacji i interfejsów
+> spójność -> normalizacja zdarzeń - te same własności w różnych przeglądarkach i na różnych platformach
+> wydajność -> automatyczne delegacje zdarzeń
+	> react nie wiąże obsługi zdarzeń z samymi węzłami, wiąże jedną procedurę nasłuchu zdarzeń z korzeniem dokumentu
+	> zdarzenie mapowane na odpowiedni element
+
+style śródliniowe
+
+formularze
+> komponent kontrolowany 
+	> element formularza z wartością / własnością powiązaną 
+	> domyślnie użytkownik nie ma możliwości jej zmienienia
+	> definiowane zgodnie z zasadami React
+> komponent niekontrolowany
+	> w szczególności długie formularzane przetwarzane po przesłaniu 
+	
+> kompnenty stanowe i czyste
+	> większość powinna być bezstanowa 

@@ -1,0 +1,26 @@
+JAVA
+- modyfikatory dostępu
+- enkapsulacja - co to, jak ją uzyskujemy
+- Dlaczego mówi się, że Java jest platform-independent
+- Wymień kilka kolekcji w Javu
+- Jakies funkcje, z których korzystamy w concurrency
+- equals vs ==
+- inteface vs abstract class
+- this vs super
+- What is Polymorphism?
+- singleton pattern
+- A pure functions, higher-order functions, currying, iteration, and monads,
+- tail recusrion
+- pattern-matching
+- fibbonacii
+- wrapper classes
+- Java string pool
+- final x3
+- checked unchecked exceptions
+- jak tworzymy thread w javie
+- różnice start() i run()
+- ArrayList vs LinkedList - gdzie szybciej usuwamy i dodajemy elementy?
+- synchronized block, jakie minusy? co to volatile
+- Polymorphism
+- kowariancja, kontrawariancja
+- static

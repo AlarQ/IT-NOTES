@@ -1,0 +1,20 @@
+<ul>
+	<li>Send code from current branch to target branch
+		<pre><code>git rebase target_branch</code></pre>
+	</li>
+	<li>Rename file
+		<pre><code>git mv file new_name</code></pre>
+	</li>
+	<li>Pretty git log
+		<pre><code>git log --pretty=oneline</code></pre>
+	</li>
+	<li>Unstaging
+		<pre><code>git reset HEAD file_name</code></pre>
+	</li>
+	<li>Unmodifying modified file
+		<pre><code>git checkout -- file_name</code></pre>
+	</li>
+	<li>Good .gitignore
+		<pre><code>https://github.com/github/gitignore</code></pre>
+	</li>
+</ul>

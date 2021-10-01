@@ -2,7 +2,7 @@ package graphql
 
 import com.sksamuel.elastic4s.ElasticProperties
 import elastic.ElasticRepository
-import graphql.resolvers.QuizPositionResolver
+import graphql.resolvers.{ArticleResolver, QuizPositionResolver}
 import graphql.schemas.QuizPositionSchema
 import play.api.libs.json._
 import play.api.mvc.Results.{BadRequest, InternalServerError, Ok}
@@ -23,7 +23,8 @@ object GraphQLServer {
     ElasticProperties(s"http://localhost:9200")
   )
 
-  val graphqlSchema = QuizPositionSchema(QuizPositionResolver(elastic))
+  val graphqlSchema = QuizPositionSchema(QuizPositionResolver(elastic),
+    ArticleResolver(elastic))
 
   def executeGraphQLQuery(
       query: String,

@@ -1,0 +1,14 @@
+<ul>
+   <li>Concurrency vs. Parallelism
+      <ol>
+		<li>Concurrency - two or more tasks are naking progress even though they might not be executing simultaneously. This can for example be realized with time slicing where parts of tasks are executed sequentially and mixed with parts of other tasks</li>
+		<li>Parallelism - the execution can be truly simultaneous.</li>
+	  </ol>
+   </li>
+   <li>
+	  <ol>
+		<li>
+		</li>
+	  </ol>
+   </li>
+</ul>

@@ -1,0 +1,10 @@
+<ul>
+	<li>DSL = Domain-Specific Language - a computer language specialized to a particular application domain</li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>

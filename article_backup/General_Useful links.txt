@@ -1,0 +1,12 @@
+search TOREAD
+
+<ul>
+	<li>Windows vm.max_map_count set	<pre><code>https://stackoverflow.com/questions/42111566/elasticsearch-in-windows-docker-image</pre></code>
+	</li>
+	<li>Navigate to drive from wsl2
+	<pre><code>https://askubuntu.com/questions/943006/how-to-navigate-to-c-drive-in-bash-on-wsl-ubuntu</code></pre></li>
+	<li>Debug play framework app
+	<pre><code>https://www.playframework.com/documentation/2.5.x/PlayConsole#debugging</code></pre>
+	<li>Generate Schema dynamically = TOREAD
+	<pre><code>https://stackoverflow.com/questions/43665937/graphql-schema-with-sangria</code></pre>
+</ul>

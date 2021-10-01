@@ -1,0 +1,24 @@
+IT - ROZWÓJ
+- Scala
+	-> programowanie funkcyjne
+	-> biblioteki Cats, Circe
+	-> kurs Odersky
+	-> projekt na github
+- streaming z API scalowym
+	-> model aktorów
+	-> akka-streams
+	-> akka-http
+- graphql
+	-> od strony klienta i servera
+- protokoły tansferu danych
+- podstawy sieci
+- algorytmy
+- wzorce projektowe
+- znajomość IDE
+- debugowanie
+- TDD, BDD
+- property testing
+- CI/CD
+- frontend - minimum
+- JVM
+	

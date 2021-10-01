@@ -13,15 +13,24 @@ class ReadOpsSpec extends AnyFlatSpec with Matchers with BeforeAndAfter {
 
   val queryFilter = Filter(name = "book")
   
-  "Product doc" should "be retrieved with filter" in {
+  "quizPosition doc" should "be retrieved with filter" in {
     implicit val index = "quizposition"
-    elasticRepo.searchById("BEDE-89048-AYNZ-36006").onComplete {
+    elasticRepo.searchQuizPositionById("BEDE-89048-AYNZ-36006").onComplete {
       case Success(response) =>
         response.foreach(println)
 
       case Failure(exception) => throw exception
     }
     Thread.sleep(2000)
+  }
 
+  "article doc" should "be retrieved with filter" in {
+    implicit val index = "article"
+    elasticRepo.searchArticleById("BEGT-71367-GYSX-09767").onComplete {
+      case Success(response) =>
+        response.foreach(println)
+      case Failure(exception) => throw exception
+    }
+    Thread.sleep(2000)
   }
 }

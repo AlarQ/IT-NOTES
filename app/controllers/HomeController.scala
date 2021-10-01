@@ -2,7 +2,8 @@ package controllers
 
 import com.google.inject.{Inject, Singleton}
 import graphql.GraphQLServer
-import graphql.commands.QuizQueries
+import graphql.commands.Queries
+import model.article.Article
 import model.quiz.QuizPosition
 import play.api.libs.json._
 import play.api.mvc._
@@ -17,7 +18,7 @@ import scala.util.{Failure, Success, Try}
 class HomeController @Inject() (val controllerComponents: ControllerComponents) extends BaseController {
 
   def main = {
-    val queryResult = GraphQLServer.executeGraphQLQuery(QuizQueries.getQuizPositions)
+    val queryResult = GraphQLServer.executeGraphQLQuery(Queries.getQuizPositions)
     val x = Await.result(queryResult, Duration(5, TimeUnit.SECONDS))
     val quizPositions = (x \ "data" \ "quizPositions" \ "hits").as[List[QuizPosition]]
 
@@ -25,6 +26,17 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
   }
 
   def quizPosition(question: String, answer: String) = Action(Ok(views.html.quizPosition(question, answer)))
+
+  def articles = {
+    val queryResult = GraphQLServer.executeGraphQLQuery(Queries.getArticles)
+    val x = Await.result(queryResult, Duration(5, TimeUnit.SECONDS))
+    val articles = (x \ "data" \ "articles" \ "hits").as[List[Article]]
+
+    Action(Ok(views.html.article.articles(articles)))
+  }
+
+  def article(title: String, content: String) = Action(Ok(views.html.article.article(title, content)))
+
 
   def graphiql = Action(Ok(views.html.graphiql()))
 

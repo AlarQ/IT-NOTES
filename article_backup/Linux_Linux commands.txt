@@ -1,0 +1,8 @@
+<ul>
+	<li>list of active ports
+	<pre><code>sudo lsof -i -P -n | grep LISTEN</code></pre></li>
+	<li>free port
+	<pre><code>sudo kill -9 $(sudo lsof -t -i:2181)</code></pre></li>
+	<li>odwrócenie kolorów
+	<pre><code>xcalib -invert -alter</code></pre></li>
+</ul>

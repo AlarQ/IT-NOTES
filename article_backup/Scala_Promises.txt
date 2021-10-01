@@ -1,0 +1,50 @@
+<ul>
+	<li> Futures are inherently non-deterministic - if you create a future, it will be evaluated somewhere in some point in time, can tell when
+	We have a service given, which we can call:
+	<pre><code>// we want to implement method:
+	def giveMeValue(arg: Int): Future[String] = ???
+
+	// using given service, can't be changed
+	object MyService {
+	
+	// deterministic
+    def produceValue(arg: Int): String = s"Your number: $arg"
+	
+	// non-deterministic
+    def submitTask[A](actualArg: A)(f: A => Unit): Boolean = {
+      // run f on actualArg at some point, without your control
+      true
+    }
+  }</code></pre>
+	</li>
+	<li> Introducing Promises = "controller/wrapper" of Future, helps creating controllable futures. Steps of usage:
+	Step 1 - create a promise
+	<pre><code>val myPromise = Promise[String]()</code></pre>
+	Step 2 - extract its future
+	<pre><code>val myFuture = myPromise.future</code></pre>
+	Step 3 - consume future
+	<pre><code> val processing = myFuture.map(_.toUpperCase)</code></pre>
+	Step 4 - create and call the producer
+	<pre><code>  def asyncCall(promise: Promise[String]): Unit = {
+    promise.success(some_string)
+  }
+    asyncCall(myPromise)
+  </code></pre>
+	</li>
+	<li>Apply to MyService. 
+	<pre><code>def giveMeValue(arg: Int): Future[String] = {
+		// Step 1 - create a Promise
+		val thePromise = Promise[String]()
+		
+		// Step 5
+		MyService.submitTask(arg){x : Int =>
+			// Step 4 - producer logic
+			val value = MyService.produceValue(x) 
+			thePromise.success(value)
+		}
+	
+		// Step 2 - extract a Future
+		thePromise.future
+	}</code></pre></li>
+
+</ul>
