@@ -1,5 +1,3 @@
 package elastic.ops
 
-trait MonitoringOps {
-
-}
+trait MonitoringOps {}

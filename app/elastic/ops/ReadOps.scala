@@ -2,7 +2,7 @@ package elastic.ops
 
 import com.sksamuel.elastic4s.ElasticApi.idsQuery
 import com.sksamuel.elastic4s.ElasticClient
-import com.sksamuel.elastic4s.ElasticDsl.{SearchHandler, search}
+import com.sksamuel.elastic4s.ElasticDsl.{search, SearchHandler}
 import com.sksamuel.elastic4s.circe._
 import com.sksamuel.elastic4s.requests.searches.SearchResponse
 import elastic.response.QuizPositionResponse

@@ -16,7 +16,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
-
 object GraphQLServer {
 
   val HOST = sys.env.getOrElse("ELASTICSEARCH_HOST", "elasticsearch")
@@ -26,21 +25,29 @@ object GraphQLServer {
 
   val graphqlSchema = QuizPositionSchema(QuizPositionResolver(elastic))
 
-  def executeGraphQLQuery(query: String, variables: Option[JsObject] = None, operation: Option[String] = None): Future[JsValue] =
+  def executeGraphQLQuery(
+      query: String,
+      variables: Option[JsObject] = None,
+      operation: Option[String] = None
+  ): Future[JsValue] =
     QueryParser.parse(query.replace("localhost:", "localhost;")) match {
       case Success(query: Document) =>
-        Executor.execute(
-          schema = graphqlSchema.schema,
-          queryAst = query,
-          userContext = MainContext(elastic),
-          operationName = operation,
-          variables = variables.getOrElse(Json.obj()),
-        ).recover {
-          case error: QueryAnalysisError => println(error.resolveError)
-            JsFalse
-          case error: ErrorWithResolver => println(error.resolveError)
-            JsFalse
-        }
+        Executor
+          .execute(
+            schema = graphqlSchema.schema,
+            queryAst = query,
+            userContext = MainContext(elastic),
+            operationName = operation,
+            variables = variables.getOrElse(Json.obj()),
+          )
+          .recover {
+            case error: QueryAnalysisError =>
+              println(error.resolveError)
+              JsFalse
+            case error: ErrorWithResolver =>
+              println(error.resolveError)
+              JsFalse
+          }
       case Failure(ex) => Future(JsString(ex.toString))
 
     }

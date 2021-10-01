@@ -12,5 +12,5 @@ case class QuizPositionResolver(elastic: ElasticRepository) {
 
   def getAllQuizPositions: Future[QuizPositionResponse] = elastic.searchAll
 
-  def getQuizPositionById(id: String)= elastic.searchById(id)
+  def getQuizPositionById(id: String) = elastic.searchById(id)
 }

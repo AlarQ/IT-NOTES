@@ -6,7 +6,7 @@ import play.api.libs.json.{Format, JsResult, JsValue, Json}
 object Index extends Enumeration {
 
   type Index = Value
-  val quizposition, quiz,article = Value
+  val quizposition, quiz, article = Value
 
   val lowerCase = this.getClass.getSimpleName.toLowerCase
 

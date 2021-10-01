@@ -2,7 +2,7 @@ package elastic.ops
 
 import com.sksamuel.elastic4s.ElasticApi.RichFuture
 import com.sksamuel.elastic4s.ElasticClient
-import com.sksamuel.elastic4s.ElasticDsl.{IndexHandler, indexInto}
+import com.sksamuel.elastic4s.ElasticDsl.{indexInto, IndexHandler}
 import com.sksamuel.elastic4s.circe._
 import com.sksamuel.elastic4s.requests.common.RefreshPolicy
 import model.Entity
@@ -19,6 +19,5 @@ trait WriteOps {
 
     response.body.isDefined
   }
-
 
 }

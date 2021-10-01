@@ -9,12 +9,12 @@ import model.{Entity, MetaData}
 import play.api.libs.json.Json
 
 case class Category(
-                     id: String,
-                     categoryType: CategoryType,
-                     parentCategory: Option[Category] = None,
-                     childCategories: List[Category] = Nil,
-                     metaData: MetaData) extends Entity {
-}
+    id: String,
+    categoryType: CategoryType,
+    parentCategory: Option[Category] = None,
+    childCategories: List[Category] = Nil,
+    metaData: MetaData
+) extends Entity {}
 
 object Category {
 
@@ -23,7 +23,7 @@ object Category {
 
   implicit val jsValueFormat = Json.format[Category]
 
-  val general = Category(categoryType = General,parentCategory = None,childCategories = Nil)
+  val general = Category(categoryType = General, parentCategory = None, childCategories = Nil)
 
   def apply(categoryType: CategoryType, parentCategory: Option[Category], childCategories: List[Category]): Category =
     new Category(
@@ -31,6 +31,6 @@ object Category {
       categoryType = categoryType,
       parentCategory = parentCategory,
       childCategories = childCategories,
-      metaData = MetaData.empty)
+      metaData = MetaData.empty
+    )
 }
-

@@ -7,7 +7,7 @@ import model.MetaData
 import model.quiz.CategoryType.CategoryType
 import model.quiz.{Category, CategoryType, QuizPosition}
 import sangria.ast.StringValue
-import sangria.macros.derive.{ReplaceField, deriveObjectType}
+import sangria.macros.derive.{deriveObjectType, ReplaceField}
 import sangria.schema._
 
 import java.time.LocalDateTime

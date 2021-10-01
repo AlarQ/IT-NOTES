@@ -1,3 +1,1 @@
-package object model {
-
-}
+package object model {}

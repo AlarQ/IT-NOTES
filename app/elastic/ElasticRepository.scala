@@ -10,6 +10,3 @@ class ElasticRepository(props: ElasticProperties) extends WriteOps with ReadOps 
   implicit val ec: ExecutionContext = ExecutionContext.global
   implicit val elasticClient: ElasticClient = ElasticClient(JavaClient(props))
 }
-
-
-

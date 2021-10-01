@@ -11,12 +11,12 @@ object SearchableEntities {
     (resolveIndex(entity), resolveJson(entity))
 
   // TODO EB
-  def resolveJson(entity: Entity) = entity.getClass.getSimpleName match {
-    case "QuizPosition" => entity.asInstanceOf[QuizPosition].asJson
-    case _ => throw new ClassCastException
-  }
+  def resolveJson(entity: Entity) =
+    entity.getClass.getSimpleName match {
+      case "QuizPosition" => entity.asInstanceOf[QuizPosition].asJson
+      case _              => throw new ClassCastException
+    }
 
   def resolveIndex(entity: Entity): Index = Index(entity.getClass.getSimpleName.toLowerCase)
-
 
 }
