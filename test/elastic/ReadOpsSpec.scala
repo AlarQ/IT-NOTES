@@ -15,7 +15,7 @@ class ReadOpsSpec extends AnyFlatSpec with Matchers with BeforeAndAfter {
   
   "quizPosition doc" should "be retrieved with filter" in {
     implicit val index = "quizposition"
-    elasticRepo.searchQuizPositionById("BEDE-89048-AYNZ-36006").onComplete {
+    elasticRepo.searchEntityById("BEDE-89048-AYNZ-36006").onComplete {
       case Success(response) =>
         response.foreach(println)
 

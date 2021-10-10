@@ -21,7 +21,7 @@ object Article {
 
   implicit val jsValueFormat = Json.using[Json.WithDefaultValues].format[Article]
 
-  implicit object QuizPositionReader extends HitReader[Article] {
+  implicit object ArticleReader extends HitReader[Article] {
     override def read(hit: Hit): Try[Article] = {
       val source = hit.sourceAsMap
       Try(
