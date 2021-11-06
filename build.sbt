@@ -13,7 +13,7 @@ javaOptions += "-Dakka.http.parsing.max-header-uri-length=16k"
 
 val elastic4sVersion = "7.14.0"
 
-herokuAppName in Compile := "tranquil-sierra-04850"
+herokuAppName in Compile := "salty-garden-13169"
 
 libraryDependencies ++= Seq(
   guice,
