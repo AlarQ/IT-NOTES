@@ -13,6 +13,7 @@ javaOptions += "-Dakka.http.parsing.max-header-uri-length=16k"
 
 val elastic4sVersion = "7.14.0"
 
+herokuAppName in Compile := "tranquil-sierra-04850"
 
 libraryDependencies ++= Seq(
   guice,
@@ -42,3 +43,4 @@ import com.typesafe.sbt.packager.docker.DockerPermissionStrategy
 dockerChmodType := DockerChmodType.UserGroupWriteExecute
 dockerPermissionStrategy := DockerPermissionStrategy.CopyChown
 enablePlugins(DockerPlugin)
+

@@ -4,7 +4,7 @@ import model.article.ElasticForArticleLoader._
 
 import scala.io.Source
 
-case object ArticleLoader extends App {
+case object ArticleLoader {
 
   load
 

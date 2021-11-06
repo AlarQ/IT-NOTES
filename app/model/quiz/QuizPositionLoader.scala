@@ -1,11 +1,14 @@
 package model.quiz
 
-import scala.annotation.tailrec
+import model.article.ElasticForArticleLoader._
+
 import scala.io.Source
 
-case object QuizPositionLoader extends App{
+case object QuizPositionLoader{
 
-  loadQuizPositions
+  load
+
+  def load = indexQuizPositions(loadQuizPositions)
 
   def loadQuizPositions: List[QuizPosition] = {
     val file = Source.fromFile("quiz_backup/scala_qp.txt")
@@ -16,8 +19,12 @@ case object QuizPositionLoader extends App{
       question = qa.head,
       answer = qa(1)
     ))
-    quizPositions.foreach(qp => println(qp.question.trim + "\n" + qp.answer.trim))
     quizPositions
   }
+
+  def indexQuizPositions(quizPositions: List[QuizPosition]) = {
+    quizPositions.foreach(qp => elasticRepo.indexEntity(qp))
+  }
+
 
 }

@@ -30,6 +30,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
   def articles = {
     val queryResult = GraphQLServer.executeGraphQLQuery(Queries.getArticles)
     val x = Await.result(queryResult, Duration(5, TimeUnit.SECONDS))
+    println(x)
+    println(x)
     val articles = (x \ "data" \ "articles" \ "hits").as[List[Article]]
 
     Action(Ok(views.html.article.articles(articles)))
