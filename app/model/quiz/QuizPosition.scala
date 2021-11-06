@@ -12,7 +12,7 @@ case class QuizPosition(
     id: String,
     question: String,
     answer: String,
-    answerLength: Int = -1,
+    repetitions: Int = 5,
     category: Category = Category.general,
     metaData: MetaData = MetaData.empty
 ) extends Entity
@@ -35,7 +35,6 @@ object QuizPosition {
       id = IdGenerator.generator.nextId(),
       question = question,
       answer = answer,
-      answerLength = answer.length,
       category = category
     )
 
@@ -44,7 +43,6 @@ object QuizPosition {
       id = IdGenerator.generator.nextId(),
       question = question,
       answer = answer,
-      answerLength = answer.length,
       category = Category.general
     )
 
