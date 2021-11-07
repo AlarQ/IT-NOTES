@@ -3,7 +3,7 @@ package controllers
 import com.google.inject.{Inject, Singleton}
 import graphql.GraphQLServer
 import graphql.commands.Queries
-import model.article.Article
+import model.article.{Article, ArticleLoader}
 import model.quiz.QuizPosition
 import play.api.libs.json._
 import play.api.mvc._
@@ -81,4 +81,8 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
     if (variables.trim.isEmpty || variables.trim == "null") Json.obj()
     else Json.parse(variables).as[JsObject]
 
+  def loaddata = {
+    ArticleLoader.load
+    Ok(views.html.main(Nil))
+  }
 }

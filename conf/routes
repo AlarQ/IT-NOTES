@@ -4,6 +4,8 @@ GET         /quizPosition          controllers.HomeController.quizPosition(quest
 GET         /articles              controllers.HomeController.articles
 GET         /article               controllers.HomeController.article(title:String,content:String)
 
+GET         /loaddata              controllers.HomeController.loaddata
+
 GET         /graphql               controllers.HomeController.graphiql
 POST        /graphqlBody           controllers.HomeController.graphqlBody
 GET         /assets/*file              controllers.Assets.versioned(path="/public", file: Asset)

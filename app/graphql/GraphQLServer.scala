@@ -20,7 +20,7 @@ object GraphQLServer {
 
   val HOST = sys.env.getOrElse("ELASTICSEARCH_HOST", "elasticsearch")
   val elastic = new ElasticRepository(
-    ElasticProperties(s"http://localhost:9200")
+    ElasticProperties("https://ip18nxx5a9:uqk3oeu05g@alder-477352390.us-east-1.bonsaisearch.net:443")
   )
 
   val graphqlSchema = QuizPositionSchema(QuizPositionResolver(elastic),
