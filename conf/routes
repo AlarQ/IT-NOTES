@@ -1,4 +1,4 @@
-GET         /                      controllers.HomeController.main
+GET         /quizpositions         controllers.HomeController.quizpositions
 GET         /quizPosition          controllers.HomeController.quizPosition(question:String,answer:String)
 
 GET         /articles              controllers.HomeController.articles

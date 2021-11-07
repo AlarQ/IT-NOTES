@@ -20,7 +20,11 @@ class ElasticRepository(props: ElasticProperties) extends WriteOps with ReadOps 
     provider
   }
 
-  implicit val elasticClient = ElasticClient(JavaClient(ElasticProperties("https://alder-477352390.us-east-1.bonsaisearch.net:443"), (requestConfigBuilder: RequestConfig.Builder) => requestConfigBuilder, new HttpClientConfigCallback {
+  implicit val elasticClient = ElasticClient(JavaClient(
+    ElasticProperties(s"http://localhost:9200")
+  ))
+
+  implicit val elasticClient1 = ElasticClient(JavaClient(ElasticProperties("https://alder-477352390.us-east-1.bonsaisearch.net:443"), (requestConfigBuilder: RequestConfig.Builder) => requestConfigBuilder, new HttpClientConfigCallback {
     override def customizeHttpClient(httpClientBuilder: HttpAsyncClientBuilder) = {
       httpClientBuilder.setDefaultCredentialsProvider(provider)
     }
