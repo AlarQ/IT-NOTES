@@ -11,15 +11,15 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 scalaVersion := "2.13.6"
 javaOptions += "-Dakka.http.parsing.max-header-uri-length=16k"
 
-val elastic4sVersion = "7.14.0"
+val elastic4sVersion = "7.15.1"
 
-herokuAppName in Compile := "salty-garden-13169"
+herokuAppName in Compile := "young-anchorage-54283"
 
 libraryDependencies ++= Seq(
   guice,
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
-  "com.softwaremill.quicklens" %% "quicklens" % "1.7.4",
-  "org.sangria-graphql" %% "sangria" % "2.1.3",
+  "com.softwaremill.quicklens" %% "quicklens" % "1.7.5",
+  "org.sangria-graphql" %% "sangria" % "2.1.4",
   "org.sangria-graphql" %% "sangria-play-json" % "2.0.2",
   "org.scalatest" %% "scalatest" % "3.2.9" % Test,
   "com.sksamuel.elastic4s" %% "elastic4s-core" % elastic4sVersion,
