@@ -21,7 +21,7 @@ case object ArticleLoader {
             val desc =
               try lines.mkString
               finally lines.close
-            Article(title = title, content = desc)
+            Article(title = title.dropRight(4), content = desc)
           case _ => Article("x", "x")
         }
       })

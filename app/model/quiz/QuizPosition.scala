@@ -2,20 +2,20 @@ package model.quiz
 
 import com.sksamuel.elastic4s.{Hit, HitReader}
 import common.IdGenerator
-import model.quiz.CategoryType.General
+import model.quiz.Category._
 import model.{Entity, MetaData}
 import play.api.libs.json.Json
 
 import scala.util.Try
 
 case class QuizPosition(
-    id: String,
-    question: String,
-    answer: String,
-    repetitions: Int = 5,
-    category: Category = Category.general,
-    metaData: MetaData = MetaData.empty
-) extends Entity
+                         id: String,
+                         question: String,
+                         answer: String,
+                         repetitions: Int = 5,
+                         category: Category = Category.GENERAL,
+                         metaData: MetaData = MetaData.empty
+                       ) extends Entity
 
 object QuizPosition {
 
@@ -43,7 +43,7 @@ object QuizPosition {
       id = IdGenerator.generator.nextId(),
       question = question,
       answer = answer,
-      category = Category.general
+      category = Category.GENERAL
     )
 
 }

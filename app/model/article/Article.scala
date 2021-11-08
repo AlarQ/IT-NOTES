@@ -3,18 +3,19 @@ package model.article
 import com.sksamuel.elastic4s.{Hit, HitReader}
 import common.IdGenerator
 import model.quiz.Category
+import model.quiz.Category.Category
 import model.{Entity, MetaData}
 import play.api.libs.json.Json
 
 import scala.util.Try
 
 case class Article(
-    id: String,
-    title: String,
-    content: String,
-    category: Category = Category.general,
-    tags: List[String] = Nil,
-    metaData: MetaData = MetaData.empty
+                    id: String,
+                    title: String,
+                    content: String,
+                    category: Category = Category.GENERAL,
+                    tags: List[String] = Nil,
+                    metaData: MetaData = MetaData.empty
 ) extends Entity
 
 object Article {

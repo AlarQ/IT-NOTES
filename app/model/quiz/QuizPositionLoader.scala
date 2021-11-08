@@ -4,12 +4,14 @@ import model.article.ElasticForArticleLoader._
 
 import scala.io.Source
 
-case object QuizPositionLoader extends  App {
+case object QuizPositionLoader{
 
   load
 
   // TODO change
-  def load = indexQuizPositions(Nil)
+  def load = {
+    indexQuizPositions(loadQuizPositions)
+  }
 
   def loadQuizPositions: List[QuizPosition] = {
     val file = Source.fromFile("quiz_backup/scala.txt")
@@ -32,7 +34,7 @@ case object QuizPositionLoader extends  App {
       QuizPosition(question = "a4",answer = "q4"),
       QuizPosition(question = "a5",answer = "q5")
     )
-    qp.foreach(qp => elasticRepo.indexEntity(qp))
+    quizPositions.foreach(qp => elasticRepo.indexEntity(qp))
   }
 
 

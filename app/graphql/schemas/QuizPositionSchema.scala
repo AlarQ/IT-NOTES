@@ -5,8 +5,8 @@ import graphql.MainContext
 import graphql.resolvers.{ArticleResolver, QuizPositionResolver}
 import model.MetaData
 import model.article.Article
-import model.quiz.CategoryType.CategoryType
-import model.quiz.{Category, CategoryType, QuizPosition}
+import model.quiz.Category.Category
+import model.quiz.{Category, QuizPosition}
 import sangria.ast.StringValue
 import sangria.macros.derive.{ReplaceField, deriveObjectType}
 import sangria.schema._
@@ -39,17 +39,17 @@ case class QuizPositionSchema(quizPositionResolver: QuizPositionResolver,
       )
     )
 
-  implicit val TestEnumType: EnumType[CategoryType] = EnumType(
+  implicit val TestEnumType: EnumType[Category] = EnumType(
     "CategoryType",
     Some("CategoryType..."),
     List(
-      EnumValue("General", value = CategoryType.General),
-      EnumValue("Scala", value = CategoryType.Scala)
+      EnumValue("General", value = Category.GENERAL),
+      EnumValue("Scala", value = Category.SCALA)
     )
   )
 
-  implicit val categoryType: ObjectType[Unit, Category] =
-    deriveObjectType[Unit, Category]()
+//  implicit val categoryType: ObjectType[Unit, Category] =
+//    deriveObjectType[Unit, Category]()
   implicit val quizPositionType: ObjectType[Unit, QuizPosition] =
     deriveObjectType[Unit, QuizPosition]()
   implicit val quizPositionResponseType: ObjectType[Unit, QuizPositionResponse] =

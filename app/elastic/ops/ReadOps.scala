@@ -21,7 +21,7 @@ trait ReadOps {
   def searchAllQuizPositions(implicit index: Index, elasticClient: ElasticClient) =
     elasticClient
       .execute {
-        search(index.toString)
+        search(index.toString).limit(100)
       }
       .map(resp =>
         QuizPositionResponse(
