@@ -1,3 +1,5 @@
+GET         /                      controllers.HomeController.index
+
 GET         /quizpositions         controllers.HomeController.quizpositions
 GET         /quizPosition          controllers.HomeController.quizPosition(question:String,answer:String)
 
@@ -6,5 +8,5 @@ GET         /article               controllers.HomeController.article(title:Stri
 
 GET         /graphql               controllers.HomeController.graphiql
 POST        /graphqlBody           controllers.HomeController.graphqlBody
-GET         /assets/*file              controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file          controllers.Assets.versioned(path="/public", file: Asset)
 

@@ -17,12 +17,15 @@ import scala.util.{Failure, Success, Try}
 @Singleton
 class HomeController @Inject() (val controllerComponents: ControllerComponents) extends BaseController {
 
+
+  def index = Action(Ok(views.html.main()))
+
   def quizpositions = {
     val queryResult = GraphQLServer.executeGraphQLQuery(Queries.getQuizPositions)
     val x = Await.result(queryResult, Duration(5, TimeUnit.SECONDS))
     val quizPositions = (x \ "data" \ "quizPositions" \ "hits").as[List[QuizPosition]]
     // TODO handle empty response x
-    Action(Ok(views.html.main(quizPositions)))
+    Action(Ok(views.html.quizposition.quizpositions(quizPositions)))
   }
 
   def quizPosition(question: String, answer: String) = Action(Ok(views.html.quizposition.quizPosition(question, answer)))

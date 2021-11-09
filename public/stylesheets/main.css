@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,700);
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200;1,500&display=swap');
 
 body {
   background-color: #12232E;
@@ -7,14 +8,37 @@ body {
   font-weight: 300;
 }
 
+a:link {
+  color: white;
+}
+
+/* visited link */
+a:visited {
+  color: #9966ff;
+}
+
+/* mouse over link */
+a:hover {
+  color: hotpink;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}
+
 .logo{
- border-radius: 25px;
-  border: 2px solid #0033cc;
+  font-family: 'Source Code Pro', monospace;
+  font-weight: bold;
+  border: 2px solid #4d88ff;
   background-color: #007CC7;
   color: white;
+  letter-spacing: 8px;
   font-size: 25px;
+  text-align: center;
   margin: 20px;
-  padding: 10 10 10 10;
+  padding-top:15px;
+  padding-bottom:15px;
 }
 
 .article{
@@ -35,4 +59,23 @@ pre {
     display: block;
     word-wrap: break-word;
     counter-reset: linecounter;
+}
+
+.btn-primary
+{
+	width: 400px;
+	height: 200px;
+	font-size: 35px;
+    margin-left:88px;
+    margin-top:30px;
+    margin-right:50px;
+    margin-bottom:30px;
+}
+
+.btn-secondary
+{
+	width: 40%;
+	height: 200px;
+	margin: 100 100 100 100;
+	font-size: 35px;
 }
