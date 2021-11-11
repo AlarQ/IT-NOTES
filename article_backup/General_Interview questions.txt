@@ -1,26 +1,26 @@
 JAVA
-- modyfikatory dostępu
-- enkapsulacja - co to, jak ją uzyskujemy
-- Dlaczego mówi się, że Java jest platform-independent
-- Wymień kilka kolekcji w Javu
-- Jakies funkcje, z których korzystamy w concurrency
-- equals vs ==
-- inteface vs abstract class
-- this vs super
-- What is Polymorphism?
-- singleton pattern
-- A pure functions, higher-order functions, currying, iteration, and monads,
-- tail recusrion
-- pattern-matching
-- fibbonacii
-- wrapper classes
-- Java string pool
-- final x3
-- checked unchecked exceptions
-- jak tworzymy thread w javie
-- różnice start() i run()
-- ArrayList vs LinkedList - gdzie szybciej usuwamy i dodajemy elementy?
-- synchronized block, jakie minusy? co to volatile
-- Polymorphism
-- kowariancja, kontrawariancja
-- static
+- modyfikatory dostępu <br>
+- enkapsulacja - co to, jak ją uzyskujemy <br>
+- Dlaczego mówi się, że Java jest platform-independent <br>
+- Wymień kilka kolekcji w Javu <br>
+- Jakies funkcje, z których korzystamy w concurrency <br>
+- equals vs == <br>
+- inteface vs abstract class <br>
+- this vs super <br>
+- What is Polymorphism? <br>
+- singleton pattern <br>
+- A pure functions, higher-order functions, currying, iteration, and monads, <br>
+- tail recusrion <br>
+- pattern-matching <br>
+- fibbonacii <br>
+- wrapper classes <br>
+- Java string pool <br>
+- final x3<br>
+- checked unchecked exceptions <br>
+- jak tworzymy thread w javie <br>
+- różnice start() i run() <br>
+- ArrayList vs LinkedList - gdzie szybciej usuwamy i dodajemy elementy? <br>
+- synchronized block, jakie minusy? co to volatile <br>
+- Polymorphism <br>
+- kowariancja, kontrawariancja <br>
+- static <br>

@@ -4,7 +4,7 @@ GET         /quizpositions         controllers.HomeController.quizpositions
 GET         /quizPosition          controllers.HomeController.quizPosition(question:String,answer:String)
 
 GET         /articles              controllers.HomeController.articles
-GET         /article               controllers.HomeController.article(title:String,content:String)
+GET        /article               controllers.HomeController.article(title:String,content:String)
 
 GET         /graphql               controllers.HomeController.graphiql
 POST        /graphqlBody           controllers.HomeController.graphqlBody

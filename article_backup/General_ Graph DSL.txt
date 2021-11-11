@@ -1,4 +1,4 @@
-<ul>
+    <ul>
 	<li>Akka Streams is used to create some potentially asynchronous components that deal with receiving and/or passing data around your application. Let's create a stream example.
 		<pre><code>implicit val system = ActorSystem()
 
@@ -17,7 +17,8 @@
 	<li>Starting graph
 		<pre><code>graph.run()</code></pre>
 	</li>
-	<li>Graph DSL is next level of akka streams. Ibntroducing TASK: 
+	<li>Graph DSL is next level of akka streams. <br>
+	Introducing TASK: <br>
 		source of ints -> 2 independend "hard" computations -> concat in tuple -> print the tuple
 		<pre><code>  // Step #1 - the frame
   val specialGraph = GraphDSL.create(){
