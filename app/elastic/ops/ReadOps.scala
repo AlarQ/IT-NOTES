@@ -1,10 +1,12 @@
 package elastic.ops
 
-import com.sksamuel.elastic4s.ElasticApi.idsQuery
+import com.sksamuel.elastic4s.ElasticApi.{idsQuery, indexInto}
 import com.sksamuel.elastic4s.ElasticClient
-import com.sksamuel.elastic4s.ElasticDsl.{SearchHandler, search}
+import com.sksamuel.elastic4s.ElasticDsl.{IndexHandler, SearchHandler, search}
 import com.sksamuel.elastic4s.circe._
+import com.sksamuel.elastic4s.requests.common.RefreshPolicy
 import com.sksamuel.elastic4s.requests.searches.SearchResponse
+import common.HtmlConverter.HTMLEnrichment
 import elastic.Index
 import elastic.Index.Index
 import elastic.response.{ArticleResponse, QuizPositionResponse}

@@ -1,10 +1,11 @@
 GET         /                      controllers.HomeController.index
 
-GET         /quizpositions         controllers.HomeController.quizpositions
+GET         /quizPositions         controllers.HomeController.quizPositions
 GET         /quizPosition          controllers.HomeController.quizPosition(question:String,answer:String)
-
+GET         /addQuizPositionform   controllers.HomeController.addQuizPositionForm
+POST        /addQuizPosition       controllers.HomeController.addQuizPosition
 GET         /articles              controllers.HomeController.articles
-GET        /article               controllers.HomeController.article(title:String,content:String)
+GET         /article               controllers.HomeController.article(title:String,content:String)
 
 GET         /graphql               controllers.HomeController.graphiql
 POST        /graphqlBody           controllers.HomeController.graphqlBody

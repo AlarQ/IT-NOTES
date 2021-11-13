@@ -62,6 +62,11 @@ case class QuizPositionSchema(quizPositionResolver: QuizPositionResolver,
 
   val idArg = Argument("id", StringType)
 
+  val questionArg = Argument("question", StringType)
+  val answerArg = Argument("answer", StringType)
+  val categoryArg = Argument("category", StringType)
+
+
   val queries: List[Field[MainContext, Unit]] = List(
     Field(
       "quizPositions",
@@ -91,11 +96,33 @@ case class QuizPositionSchema(quizPositionResolver: QuizPositionResolver,
     )
   )
 
+  val mutations: List[Field[MainContext, Unit]] = List(
+    Field(
+      "createQuizPosition",
+      BooleanType,
+      arguments = questionArg :: answerArg  :: categoryArg :: Nil,
+      resolve = c => {
+        val question = c arg questionArg
+        val answer = c arg answerArg
+        val category = c arg categoryArg
+        quizPositionResolver.createQuizPosition(question, answer, category)
+      }
+    )
+  )
+
+
   val schema: Schema[MainContext, Unit] = sangria.schema.Schema(
     query = ObjectType(
       "Query",
       fields(
-        queries: _*
+        queries: _*,
+      )
+    ),
+    mutation = Some(
+      ObjectType("Mutation",
+        fields(
+          mutations: _*
+        )
       )
     )
   )

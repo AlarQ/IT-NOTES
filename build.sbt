@@ -6,6 +6,20 @@ organization := "com.alarq"
 
 version := "1.0-SNAPSHOT"
 
+
+// ------------------------- SETTINGS -------------------------
+PlayKeys.devSettings := Seq("play.akka.dev-mode.akka.http.parsing.max-uri-length" -> "16k")
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
+javaOptions += "-Dakka.http.parsing.max-header-uri-length=16k"
+
+herokuAppName in Compile := "young-anchorage-54283"
+
+dockerChmodType := DockerChmodType.UserGroupWriteExecute
+dockerPermissionStrategy := DockerPermissionStrategy.CopyChown
+enablePlugins(DockerPlugin)
+
+
 // ------------------------- VERSIONS -------------------------
 scalaVersion := "2.13.6"
 val scalaTestVersion = "3.2.9"
@@ -18,11 +32,13 @@ val elastic4sVersion = "7.15.1"
 
 val circeVersion = "0.14.1"
 
+val AkkaVersion = "2.6.14"
+
 val quickLensVersion = "1.7.5"
 val idGeneratorVersion = "1.3.1"
 val shapelessVersion = "2.3.7"
 // ------------------------- DEPENDENCIES ---------------------
-val testing = Seq(
+val s = Seq(
   "org.scalatest" %% "scalatest" % scalaTestVersion % Test,
   "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlusVersion % Test
 )
@@ -45,23 +61,16 @@ val elastic$s = Seq(
   "com.sksamuel.elastic4s" %% "elastic4s-testkit" % elastic4sVersion % "test",
 )
 
+val akkaStreams = Seq(
+  "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
+  "com.typesafe.akka" %% "akka-stream-testkit" % AkkaVersion % Test
+)
+
 val others = Seq(
   "com.softwaremill.quicklens" %% "quicklens" % quickLensVersion,
   "com.softwaremill.common" %% "id-generator" % idGeneratorVersion,
   "com.chuusai" %% "shapeless" % shapelessVersion
 )
 
-libraryDependencies ++= Seq(guice) ++ testing ++ sangria ++ circe ++ elastic$s ++ others
-
-// ------------------------- SETTINGS -------------------------
-PlayKeys.devSettings := Seq("play.akka.dev-mode.akka.http.parsing.max-uri-length" -> "4096")
-
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
-javaOptions += "-Dakka.http.parsing.max-header-uri-length=16k"
-
-herokuAppName in Compile := "young-anchorage-54283"
-
-dockerChmodType := DockerChmodType.UserGroupWriteExecute
-dockerPermissionStrategy := DockerPermissionStrategy.CopyChown
-enablePlugins(DockerPlugin)
+libraryDependencies ++= Seq(guice) ++ s ++ sangria ++ circe ++ elastic$s ++ akkaStreams ++ others
 

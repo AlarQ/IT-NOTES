@@ -11,6 +11,7 @@ trait WriteOps {
 
   def indexEntity(entity: Entity)(implicit elasticClient: ElasticClient): Boolean = {
     val (index, json) = resolveIndexAndJson(entity)
+    println(entity)
     val response = elasticClient.execute {
       indexInto(index).id(entity.id) doc json refresh (RefreshPolicy.IMMEDIATE)
     }.await

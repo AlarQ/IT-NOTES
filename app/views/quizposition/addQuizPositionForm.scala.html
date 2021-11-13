@@ -1,4 +1,4 @@
-<!Doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -20,17 +20,43 @@
 </head>
 <body>
 <div class="container">
-    <a href="@routes.HomeController.index">
-        <div class="logo col-md-12">IT -- NOTES</div>
-    </a>
-    <div class="content">
-        <a href="@routes.HomeController.articles">
-            <button type="button" action="@routes.HomeController.articles"class="btn btn-primary btn-lg">Articles</button>
-        </a>
-        <a href="@routes.HomeController.quizPositions">
-            <button type="button" action="@routes.HomeController.`quizPositions`" class="btn btn-primary btn-lg">Quizzes</button>
-        </a>
+    <div class="row">
+        <div class="logo col-md-12">
+            <h1>ITNotes</h1>
+        </div>
     </div>
+    <div class="content">
+        <h3>Add concept</h3>
+
+        <form method="post" action="addquizposition">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="question" placeholder="question">
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label>Answer</label>
+                    <textarea class="form-control" name="answer" rows="15"></textarea>
+                </div>
+                <label>Category</label>
+                <select class="form-control" name="category">
+                    <option>GENERAL</option>
+                    <option>SCALA</option>
+                    <option>ELASTICSEARCH</option>
+                    <option>KAFKA</option>
+                    <option>GRAPHQL</option>
+                    <option>LINUX</option>
+                    <option>DESIGN_PATTERNS</option>
+                    <option>GIT</option>
+                    <option>DOCKER</option>
+                    <option>ALGORITHMS</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+
 </div>
 
 
