@@ -9,13 +9,13 @@ import play.api.libs.json.Json
 import scala.util.Try
 
 case class QuizPosition(
-                         id: String,
-                         question: String,
-                         answer: String,
-                         repetitions: Int = 5,
-                         category: Category = Category.GENERAL,
-                         metaData: MetaData = MetaData.empty
-                       ) extends Entity
+    id: String,
+    question: String,
+    answer: String,
+    repetitions: Int = 5,
+    category: Category = Category.GENERAL,
+    metaData: MetaData = MetaData.empty
+) extends Entity
 
 object QuizPosition {
 

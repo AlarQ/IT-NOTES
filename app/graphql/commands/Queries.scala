@@ -1,8 +1,5 @@
 package graphql.commands
 
-import sangria.ast.Document
-import sangria.macros._
-
 object Queries {
 
   def getQuizPositions: String =

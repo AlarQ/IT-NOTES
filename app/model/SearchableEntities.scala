@@ -15,7 +15,7 @@ object SearchableEntities {
   def resolveJson(entity: Entity) =
     entity.getClass.getSimpleName match {
       case "QuizPosition" => entity.asInstanceOf[QuizPosition].asJson
-      case "Article" => entity.asInstanceOf[Article].asJson
+      case "Article"      => entity.asInstanceOf[Article].asJson
       case _              => throw new ClassCastException
     }
 

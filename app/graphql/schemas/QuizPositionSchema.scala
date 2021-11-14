@@ -1,73 +1,27 @@
 package graphql.schemas
 
-import elastic.response.{ArticleResponse, QuizPositionResponse}
+import elastic.ESRepo
+import elastic.response.QuizPositionResponse
 import graphql.MainContext
-import graphql.resolvers.{ArticleResolver, QuizPositionResolver}
-import model.MetaData
-import model.article.Article
-import model.quiz.Category.Category
-import model.quiz.{Category, QuizPosition}
-import sangria.ast.StringValue
-import sangria.macros.derive.{ReplaceField, deriveObjectType}
-import sangria.schema._
+import graphql.resolvers.QuizPositionResolver
+import graphql.schemas.CommonSangriaDefinitions._
+import model.quiz.QuizPosition
+import sangria.macros.derive.deriveObjectType
+import sangria.schema.{Argument, BooleanType, Field, ObjectType, OptionType, StringType}
 
-import java.time.LocalDateTime
+object QuizPositionSchema {
+  lazy val quizPositionResolver = QuizPositionResolver(ESRepo.elasticRepo)
 
-case class QuizPositionSchema(quizPositionResolver: QuizPositionResolver,
-                              articleResolver: ArticleResolver) {
-
-  implicit val GraphQLDateTime = ScalarType[LocalDateTime](
-    "DateTime",
-    coerceOutput = (dt, _) => dt.toString,
-    coerceInput = {
-      case StringValue(dt, _, _, _, _) =>
-        Some(LocalDateTime.parse(dt)).toRight(DateTimeCoerceViolation)
-      case _ => Left(DateTimeCoerceViolation)
-    },
-    coerceUserInput = {
-      case s: String =>
-        Some(LocalDateTime.parse(s)).toRight(DateTimeCoerceViolation)
-      case _ => Left(DateTimeCoerceViolation)
-    }
-  )
-
-  implicit val metaDataType: ObjectType[Unit, MetaData] =
-    deriveObjectType[Unit, MetaData](
-      ReplaceField(
-        "createdAt",
-        Field("createdAt", GraphQLDateTime, resolve = _.value.createdAt)
-      )
-    )
-
-  implicit val TestEnumType: EnumType[Category] = EnumType(
-    "CategoryType",
-    Some("CategoryType..."),
-    List(
-      EnumValue("General", value = Category.GENERAL),
-      EnumValue("Scala", value = Category.SCALA)
-    )
-  )
-
-//  implicit val categoryType: ObjectType[Unit, Category] =
-//    deriveObjectType[Unit, Category]()
   implicit val quizPositionType: ObjectType[Unit, QuizPosition] =
     deriveObjectType[Unit, QuizPosition]()
   implicit val quizPositionResponseType: ObjectType[Unit, QuizPositionResponse] =
     deriveObjectType[Unit, QuizPositionResponse]()
 
-  implicit val articleType: ObjectType[Unit, Article] =
-    deriveObjectType[Unit, Article]()
-  implicit val articleResponse: ObjectType[Unit, ArticleResponse] =
-    deriveObjectType[Unit, ArticleResponse]()
-
-  val idArg = Argument("id", StringType)
-
   val questionArg = Argument("question", StringType)
   val answerArg = Argument("answer", StringType)
   val categoryArg = Argument("category", StringType)
 
-
-  val queries: List[Field[MainContext, Unit]] = List(
+  val quizPositionQueries: List[Field[MainContext, Unit]] = List(
     Field(
       "quizPositions",
       quizPositionResponseType,
@@ -80,50 +34,20 @@ case class QuizPositionSchema(quizPositionResolver: QuizPositionResolver,
       OptionType(quizPositionType),
       arguments = idArg :: Nil,
       resolve = c => quizPositionResolver.getQuizPositionById(c.arg(idArg))
-    ),
-    Field(
-      "articles",
-      articleResponse,
-      resolve = _ => {
-        articleResolver.getAllArticles
-      }
-    ),
-    Field(
-      "article",
-      OptionType(articleType),
-      arguments = idArg :: Nil,
-      resolve = c => articleResolver.getArticleById(c.arg(idArg))
     )
   )
 
-  val mutations: List[Field[MainContext, Unit]] = List(
+  val quizPositionMutations: List[Field[MainContext, Unit]] = List(
     Field(
       "createQuizPosition",
       BooleanType,
-      arguments = questionArg :: answerArg  :: categoryArg :: Nil,
+      arguments = questionArg :: answerArg :: categoryArg :: Nil,
       resolve = c => {
         val question = c arg questionArg
         val answer = c arg answerArg
         val category = c arg categoryArg
         quizPositionResolver.createQuizPosition(question, answer, category)
       }
-    )
-  )
-
-
-  val schema: Schema[MainContext, Unit] = sangria.schema.Schema(
-    query = ObjectType(
-      "Query",
-      fields(
-        queries: _*,
-      )
-    ),
-    mutation = Some(
-      ObjectType("Mutation",
-        fields(
-          mutations: _*
-        )
-      )
     )
   )
 }

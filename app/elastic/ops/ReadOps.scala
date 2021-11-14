@@ -1,12 +1,10 @@
 package elastic.ops
 
-import com.sksamuel.elastic4s.ElasticApi.{idsQuery, indexInto}
-import com.sksamuel.elastic4s.ElasticClient
-import com.sksamuel.elastic4s.ElasticDsl.{IndexHandler, SearchHandler, search}
+import com.sksamuel.elastic4s.ElasticApi.idsQuery
+import com.sksamuel.elastic4s.ElasticDsl.{search, SearchHandler}
 import com.sksamuel.elastic4s.circe._
-import com.sksamuel.elastic4s.requests.common.RefreshPolicy
 import com.sksamuel.elastic4s.requests.searches.SearchResponse
-import common.HtmlConverter.HTMLEnrichment
+import com.sksamuel.elastic4s.{ElasticClient, Response}
 import elastic.Index
 import elastic.Index.Index
 import elastic.response.{ArticleResponse, QuizPositionResponse}
@@ -20,18 +18,6 @@ import scala.concurrent.Future
 
 trait ReadOps {
 
-  def searchAllQuizPositions(implicit index: Index, elasticClient: ElasticClient) =
-    elasticClient
-      .execute {
-        search(index.toString).limit(100)
-      }
-      .map(resp =>
-        QuizPositionResponse(
-          resp.result.to[QuizPosition],
-          resp.result.totalHits
-        )
-      )
-
   def searchEntityById[T <: Entity](
       entityId: String
   )(implicit
@@ -42,26 +28,33 @@ trait ReadOps {
       .execute {
         search(index.toString).limit(100).query(idsQuery(entityId))
       }
-      .map(_.result)
-      .map(res => mapResponse(index, res))
+      .map(res => mapSingleResponse(index, res))
 
-  def mapResponse[T <: Entity](index: Index, resp: SearchResponse) = index match {
-    case Index.quizposition => resp.to[QuizPosition].headOption
-    case Index.quiz => resp.to[Quiz].headOption
-    case Index.article => resp.to[Article].headOption
-  }
+  def mapSingleResponse[T <: Entity](index: Index, resp: Response[SearchResponse]) =
+    index match {
+      case Index.quizposition => resp.result.to[QuizPosition].headOption
+      case Index.quiz         => resp.result.to[Quiz].headOption
+      case Index.article      => resp.result.to[Article].headOption
+    }
 
-
-  def searchAllArticles(implicit index: Index, elasticClient: ElasticClient) =
+  def searchAll(implicit index: Index, elasticClient: ElasticClient) =
     elasticClient
       .execute {
         search(index.toString).limit(100)
       }
-      .map(resp =>
+      .map(resp => mapResponse(index, resp))
+
+  def mapResponse(index: Index, resp: Response[SearchResponse]): elastic.response.SearchResponse[Entity] =
+    index match {
+      case Index.quizposition =>
+        QuizPositionResponse(
+          resp.result.to[QuizPosition],
+          resp.result.totalHits
+        )
+      case Index.article =>
         ArticleResponse(
           resp.result.to[Article],
           resp.result.totalHits
         )
-      )
-
+    }
 }

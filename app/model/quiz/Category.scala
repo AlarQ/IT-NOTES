@@ -11,7 +11,6 @@ object Category extends Enumeration {
   implicit val genderDecoder: Decoder[Category.Value] = Decoder.decodeEnumeration(Category)
   implicit val genderEncoder: Encoder[Category.Value] = Encoder.encodeEnumeration(Category)
 
-
   implicit val format = new Format[Category.Value] {
     override def writes(o: Category.Value): JsValue = Json.toJson(o.toString)
 

@@ -42,7 +42,7 @@
             <tbody>
             @for(c <- quizPositions) {
             <tr>
-                <td><a href="@routes.HomeController.quizPosition(c.question,c.answer)">@c.id</a>
+                <td><a href="@routes.HomeController.quizPosition(c.id,c.question,c.answer)">@c.id</a>
                 </td>
                 <td>@c.question</td>
             </tr>

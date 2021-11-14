@@ -10,12 +10,12 @@ import play.api.libs.json.Json
 import scala.util.Try
 
 case class Article(
-                    id: String,
-                    title: String,
-                    content: String,
-                    category: Category = Category.GENERAL,
-                    tags: List[String] = Nil,
-                    metaData: MetaData = MetaData.empty
+    id: String,
+    title: String,
+    content: String,
+    category: Category = Category.GENERAL,
+    tags: List[String] = Nil,
+    metaData: MetaData = MetaData.empty
 ) extends Entity
 
 object Article {

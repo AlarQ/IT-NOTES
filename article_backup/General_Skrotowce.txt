@@ -1,8 +1,8 @@
 <ul>
 	<li>DSL = Domain-Specific Language - a computer language specialized to a particular application domain</li>
-	<li></li>
-	<li></li>
-	<li></li>
+	<li>CLI = Command Line Interface</li>
+	<li>NFS = Network File System - native file sharing protocol for UNIX/LINUX</li>
+	<li>LDAP = Lightweight Directory Access Protocol</li>
 	<li></li>
 	<li></li>
 	<li></li>

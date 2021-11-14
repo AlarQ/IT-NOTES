@@ -40,7 +40,7 @@
             <tbody>
             @for(article <- articles) {
             <tr>
-                    <td><a href="@routes.HomeController.article(article.title,article.content)">@article.id</a>
+                    <td><a href="@routes.HomeController.article(article.id,article.title,article.content)">@article.id</a>
                 </td>
                 <td>@article.title</td>
             </tr>

@@ -1,12 +1,7 @@
 package graphql
 
-import com.sksamuel.elastic4s.ElasticProperties
-import elastic.ElasticRepository
-import graphql.resolvers.{ArticleResolver, QuizPositionResolver}
-import graphql.schemas.QuizPositionSchema
+import graphql.schemas.GraphQLSchema
 import play.api.libs.json._
-import play.api.mvc.Results.{BadRequest, InternalServerError, Ok}
-import play.api.mvc._
 import sangria.ast.Document
 import sangria.execution._
 import sangria.marshalling.playJson._
@@ -18,14 +13,6 @@ import scala.util.{Failure, Success}
 
 object GraphQLServer {
 
-  val HOST = sys.env.getOrElse("ELASTICSEARCH_HOST", "elasticsearch")
-  val elastic = new ElasticRepository(
-    ElasticProperties("https://ip18nxx5a9:uqk3oeu05g@alder-477352390.us-east-1.bonsaisearch.net:443")
-  )
-
-  val graphqlSchema = QuizPositionSchema(QuizPositionResolver(elastic),
-    ArticleResolver(elastic))
-
   def executeGraphQLQuery(
       query: String,
       variables: Option[JsObject] = None,
@@ -35,9 +22,9 @@ object GraphQLServer {
       case Success(query: Document) =>
         Executor
           .execute(
-            schema = graphqlSchema.schema,
+            schema = GraphQLSchema.schema,
             queryAst = query,
-            userContext = MainContext(elastic),
+            userContext = MainContext.getContext,
             operationName = operation,
             variables = variables.getOrElse(Json.obj()),
           )
