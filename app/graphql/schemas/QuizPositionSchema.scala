@@ -48,6 +48,15 @@ object QuizPositionSchema {
         val category = c arg categoryArg
         quizPositionResolver.createQuizPosition(question, answer, category)
       }
+    ),
+    Field(
+      "deleteQuizPosition",
+      BooleanType,
+      arguments = idArg :: Nil,
+      resolve = c => {
+        quizPositionResolver.deleteQuizPosition(c.arg(idArg))
+      }
     )
+
   )
 }

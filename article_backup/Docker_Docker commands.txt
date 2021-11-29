@@ -1,7 +1,0 @@
-<ul>
-	<li>lunch container with interactive mode (to take input) and terminal
-	<pre><code>docker run -it container_name</code></pre>
-	</li>
-	<li> more info about container
-	<pre><code>docker inspect container_name</code></pre></li>
-</ul>

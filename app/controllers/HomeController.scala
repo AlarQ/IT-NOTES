@@ -3,7 +3,7 @@ package controllers
 import com.google.inject.{Inject, Singleton}
 import graphql.GraphQLServer
 import graphql.commands.Mutations.createQuizPosition
-import graphql.commands.Queries
+import graphql.commands.{Mutations, Queries}
 import model.article.Article
 import model.quiz.QuizPosition
 import play.api.libs.json._
@@ -49,6 +49,13 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
       // TODO add some notification
       Ok(views.html.main())
     }
+
+  def deleteQuizPosition(qpId: String)= Action{
+    val deleteOp =  Mutations.deleteQuizPosition(qpId)
+    GraphQLServer.executeGraphQLQuery(deleteOp)
+    // TODO add some notification
+    Ok(views.html.main())
+  }
 
   // ---------- ARTICLE ----------
 

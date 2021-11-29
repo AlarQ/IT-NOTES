@@ -4,6 +4,8 @@ GET         /quiz-positions        controllers.HomeController.quizPositions
 GET         /quiz-positions/:id    controllers.HomeController.quizPosition(id:String,question:String,answer:String)
 GET         /quiz-positions-form   controllers.HomeController.addQuizPositionForm
 POST        /quiz-positions/add    controllers.HomeController.addQuizPosition
+POST        /quiz-position/:id     controllers.HomeController.deleteQuizPosition(id:String)
+
 GET         /articles              controllers.HomeController.articles
 GET         /articles/:id          controllers.HomeController.article(id:String,title:String,content:String)
 

@@ -9,4 +9,8 @@ object Mutations {
       s"category: ${'"'}$category${'"'})\n      }"
   }
 
+  def deleteQuizPosition(qpId: String): String = {
+    s"mutation delete{\n  deleteQuizPosition(id:${'"'}$qpId${'"'})\n}"
+  }
+
 }

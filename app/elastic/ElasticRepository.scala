@@ -20,7 +20,7 @@ case class ElasticRepository(props: ElasticProperties) extends WriteOps with Rea
     val pass = sys.env("ES_PASS")
     val credentials = new UsernamePasswordCredentials(userName, pass)
     provider.setCredentials(AuthScope.ANY, credentials)
-    provider-
+    provider
   }
 
   implicit val elasticClient = {
