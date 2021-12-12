@@ -2,7 +2,7 @@ package controllers
 
 import com.google.inject.{Inject, Singleton}
 import graphql.GraphQLServer
-import graphql.commands.Mutations.createQuizPosition
+import graphql.commands.Mutations.{createArticle, createQuizPosition}
 import graphql.commands.{Mutations, Queries}
 import model.article.Article
 import model.quiz.QuizPosition
@@ -68,6 +68,30 @@ class HomeController @Inject() (val controllerComponents: ControllerComponents) 
   }
 
   def article(id: String, title: String, content: String) = Action(Ok(views.html.article.article(title, content)))
+
+  def addArticleForm = Action(Ok(views.html.article.articleForm()))
+
+  def addArticle =
+    Action { request =>
+      val postVals = request.body.asFormUrlEncoded
+      postVals.map { args =>
+        val title = args("title").head
+        val content = args("content").head
+        val category = args("category").head
+
+        val createArticleQuery = createArticle(title, content, category)
+         GraphQLServer.executeGraphQLQuery(createArticleQuery)
+      }
+      // TODO add some notification
+      Ok(views.html.main())
+    }
+
+  def deleteArticle(articleId: String)= Action{
+    val deleteOp =  Mutations.deleteArticle(articleId)
+    GraphQLServer.executeGraphQLQuery(deleteOp)
+    // TODO add some notification
+    Ok(views.html.main())
+  }
 
   // ---------- GRAPHQL ----------
 

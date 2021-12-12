@@ -10,60 +10,54 @@ import scala.concurrent.duration.Duration
 
 case object HtmlConverter {
 
-  implicit val actorSystem = ActorSystem("htmlSerialize")
+  implicit val actorSystem = ActorSystem("htmlConverter")
 
-  trait HTMLSerializer[T] {
-    def serialize(value: T): String
+  trait HTMLConverter[T] {
+    def convert(value: T): String
   }
 
-  object HTMLSerializer {
-    def serialize[T](value: T)(implicit serializer: HTMLSerializer[T]): String = serializer.serialize(value)
+  object HTMLConverter {
+    def convert[T](value: T)(implicit converter: HTMLConverter[T]): String = converter.convert(value)
 
-    def apply[T](implicit serializer: HTMLSerializer[T]) = serializer
+    def apply[T](implicit converter: HTMLConverter[T]) = converter
   }
 
-  implicit case object StringSerializer extends HTMLSerializer[String] {
+  implicit case object StringConverter extends HTMLConverter[String] {
 
-    override def serialize(value: String): String = {
+    override def convert(value: String): String = {
       val future = Source
         .single[String](value)
-        .viaMat(serializeCodeSnippets)(Keep.right)
+        .viaMat(convertCodeSnippets)(Keep.right)
+        .viaMat(convertLists)(Keep.right)
         .toMat(Sink.head)(Keep.right)
         .run()
 
       Await.result(future, Duration.apply(1, TimeUnit.SECONDS))
     }
 
-    def serializeCodeSnippets: Flow[String, String, NotUsed] = {
+    def convertCodeSnippets: Flow[String, String, NotUsed] = {
       Flow[String]
         .map(value => {
-          val pattern = "<\\|([\\S\\s]*)\\|>"
+          val pattern = "<\\|([^>]*)\\|>"
           value.replaceAll(pattern, "<pre><code>$1</pre></code>")
         })
     }
 
-    def serializeLists: Flow[String, String, NotUsed] = {
-      def serializeItems(value: String) = {
-        val items = value
-          .split("E>")
-          .toList
-          .map(_.trim)
-          .map(_.replace("l#", ""))
-          .map(_.replace("#l", ""))
-
-        items.map(item => s"<li>$item</li>\n").mkString
-      }
+    def convertLists: Flow[String, String, NotUsed] = {
 
       Flow[String]
         .map(value => {
-          val listPattern = "l#([\\S\\s]*)#l".r
-          listPattern.replaceFirstIn(value, "list")
+          val listPattern = "l#([^#]*)#l"
+          value.replaceAll(listPattern ,"<ul>$1</ul>")
+            .replaceAll("E> ","</li><li>")
+            .replaceAll("<ul></li>","<ul>")
+            .replaceAll("</ul>","</li></ul>")
         })
 
     }
   }
 
   implicit class HTMLEnrichment[T](value: T) {
-    def toHTML(implicit serializer: HTMLSerializer[T]): String = serializer.serialize(value)
+    def toHTML(implicit converter: HTMLConverter[T]): String = converter.convert(value)
   }
 }

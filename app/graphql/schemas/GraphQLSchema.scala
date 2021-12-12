@@ -18,7 +18,7 @@ case object GraphQLSchema {
       ObjectType(
         "Mutation",
         fields(
-          quizPositionMutations: _*
+          (quizPositionMutations ++ articleMutations): _*
         )
       )
     )

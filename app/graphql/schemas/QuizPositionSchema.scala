@@ -57,6 +57,5 @@ object QuizPositionSchema {
         quizPositionResolver.deleteQuizPosition(c.arg(idArg))
       }
     )
-
   )
 }

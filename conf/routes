@@ -8,6 +8,9 @@ POST        /quiz-position/:id     controllers.HomeController.deleteQuizPosition
 
 GET         /articles              controllers.HomeController.articles
 GET         /articles/:id          controllers.HomeController.article(id:String,title:String,content:String)
+GET         /articles-form         controllers.HomeController.addArticleForm
+POST        /articles/add          controllers.HomeController.addArticle
+POST        /article/:id           controllers.HomeController.deleteArticle(id:String)
 
 GET         /graphql               controllers.HomeController.graphiql
 POST        /graphqlBody           controllers.HomeController.graphqlBody
